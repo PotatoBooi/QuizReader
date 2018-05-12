@@ -23,6 +23,14 @@ namespace QuizReader.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         /// 
+        /// TODO:
+        /// OpenFileDialogService
+        /// Quiz Logic
+        /// Finish screen
+        /// Data Security enhancement
+        /// GUI Polishing
+        /// 
+
         private string _quizTitle;
         private readonly IFrameNavigationService _navigationService;
      
