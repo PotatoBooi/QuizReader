@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using QuizReader.Views;
 using System.Windows.Navigation;
 using QuizReader.Services;
+using MvvmDialogs;
 
 namespace QuizReader.ViewModel
 {
@@ -54,11 +55,17 @@ namespace QuizReader.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
+            SimpleIoc.Default.Unregister<IFrameNavigationService>();
+            SimpleIoc.Default.Unregister<MvvmDialogs.IDialogService>();
+
+
+            SimpleIoc.Default.Register<MvvmDialogs.IDialogService>(() => new DialogService());
             SetupNavigation();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<StartViewModel>();
             SimpleIoc.Default.Register<QuizViewModel>();
-           
+            SimpleIoc.Default.Register<QuizEndViewModel>();
+
         }
 
         public MainViewModel Main
@@ -83,9 +90,23 @@ namespace QuizReader.ViewModel
             }
         }
 
+        public QuizEndViewModel QuizEnd
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<QuizEndViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
+            SimpleIoc.Default.Unregister<StartViewModel>();
+            SimpleIoc.Default.Unregister<QuizViewModel>();
+            SimpleIoc.Default.Unregister<QuizEndViewModel>();
+            SimpleIoc.Default.Register<StartViewModel>();
+            SimpleIoc.Default.Register<QuizViewModel>();
+            SimpleIoc.Default.Register<QuizEndViewModel>();
         }
 
         private static void SetupNavigation()
@@ -93,8 +114,9 @@ namespace QuizReader.ViewModel
             var navigationService = new FrameNavigationService();
             navigationService.Configure("Start", new Uri("../Views/StartView.xaml", UriKind.Relative));
             navigationService.Configure("Quiz", new Uri("../Views/QuizView.xaml", UriKind.Relative));
-
+            navigationService.Configure("End", new Uri("../Views/QuizEndView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }
+       
     }
 }

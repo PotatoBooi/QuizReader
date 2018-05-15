@@ -7,12 +7,18 @@
         xmlns:local="clr-namespace:QuizReader"
         mc:Ignorable="d"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
-        Title="{Binding QuizTitle}" Height="350" Width="525">
+        ResizeMode="CanMinimize"
+        Title="{Binding QuizTitle}"
+        Height="400" Width="600" 
+        WindowStartupLocation="CenterScreen">
+    
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="20,0,0,0" ></Setter>
         </Style>
     </Window.Resources>
+    
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -32,7 +38,8 @@
         </Grid.RowDefinitions>
         
         
-        <Frame x:Name="MainFrame" Grid.Column="3" Grid.Row="1"  NavigationUIVisibility="Hidden"  >
+        <Frame x:Name="MainFrame" Grid.Column="3" Grid.Row="1"  NavigationUIVisibility="Hidden" UseLayoutRounding="False" 
+               HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
                     <i:InvokeCommandAction Command="{Binding OnLoadCommand}"/>

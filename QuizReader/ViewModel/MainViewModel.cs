@@ -5,36 +5,20 @@ using System.Windows.Input;
 
 namespace QuizReader.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
+   
     public class MainViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        /// 
-        /// TODO:
-        /// OpenFileDialogService
-        /// Quiz Logic
-        /// Finish screen
-        /// Data Security enhancement
-        /// GUI Polishing
-        /// 
-
+    
+        #region Private Fields
         private string _quizTitle;
         private readonly IFrameNavigationService _navigationService;
-     
+        #endregion
+
+        #region Commands
         public RelayCommand OnLoadCommand { get; private set; }
+        #endregion
+
+        #region Ctor
         public MainViewModel(IFrameNavigationService navigationService)
         {
             if (IsInDesignMode)
@@ -48,29 +32,28 @@ namespace QuizReader.ViewModel
               
             }
             this._navigationService = navigationService;
-            QuizTitle = "MainWindow - QuizReader ";
+            QuizTitle = "QuizReader ";
             this.OnLoadCommand = new RelayCommand(SwitchView);
             
             
         }
+        #endregion
 
-
+        #region Properties
         public string QuizTitle
         {
             get { return _quizTitle; }
-            set { _quizTitle = value; }
+            set { Set(()=>QuizTitle,ref _quizTitle,value); }
         }
+        #endregion
 
-        public string PageKey
-        {
-            get; private set;
-        }
-
+        #region Private Methods
         private void SwitchView()
         {
             _navigationService.NavigateTo("Start");
             
         }
-      
+        #endregion
+
     }
 }
