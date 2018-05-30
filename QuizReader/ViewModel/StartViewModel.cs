@@ -64,7 +64,7 @@ namespace QuizReader.ViewModel
                 var settings = new OpenFileDialogSettings
                 {
                     Title = "Select the quiz file",
-                    InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                     Filter = "XML Document (*.xml)|*.xml"
                 };
 

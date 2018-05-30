@@ -24,14 +24,14 @@ namespace QuizReader.Services
         public DataReader(string path)
         {
             _path = path;
-            initialize();
+            Initialize();
             GetData();
 
 
 
 
         }
-        private void initialize()
+        private void Initialize()
         {
             this._input = new List<InputData>();
             this.inputDocument = new XDocument();
